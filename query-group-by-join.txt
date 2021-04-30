@@ -9,9 +9,15 @@ GROUP BY
 	SELECT HOUR(`created_at`), COUNT(HOUR(`created_at`)) 
 	FROM `prenotazioni` GROUP BY HOUR(`created_at`) ORDER BY COUNT(HOUR(`created_at`)) DESC
 5) Quante prenotazioni ha fatto l’ospite che ha fatto più prenotazioni?
+	
 
 JOIN
 1) Come si chiamano gli ospiti che hanno fatto più di due prenotazioni?
+	SELECT `prenotazioni_has_ospiti`.`ospite_id`, `ospiti`.`name`, `ospiti`.`lastname`, COUNT(`prenotazioni_has_ospiti`.`id`) AS "totale" 
+	FROM `prenotazioni_has_ospiti` 
+	INNER JOIN `ospiti` 
+	ON `prenotazioni_has_ospiti`.`ospite_id` = `ospiti`.`id` 
+	GROUP BY `prenotazioni_has_ospiti`.`ospite_id` having `totale` > 2
 2) Stampare tutti gli ospiti per ogni prenotazione
 3) Stampare Nome, Cognome, Prezzo e Pagante per tutte le prenotazioni fatte a Maggio 2018
 4) Fai la somma di tutti i prezzi delle prenotazioni per le stanze del primo piano
